@@ -18,12 +18,12 @@ const config: Config[] = [
     {
         callback: 'minor',
         name: 'Minor',
-        isDefault: false
+        isDefault: true
     },
     {
         callback: 'minor7',
         name: 'Minor7',
-        isDefault: false
+        isDefault: true
     },
     {
         callback: 'sus2',
