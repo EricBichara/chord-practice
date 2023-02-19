@@ -1,6 +1,8 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import {SlideToggle} from "@skeletonlabs/skeleton";
+    import type {Config} from "../lib/config";
+    import config from '../lib/config';
 
     const keys = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
     const inversions = ['Root Inversion', '1st Inversion', '2nd Inversion'];
@@ -11,41 +13,24 @@
     let intervalId;
 
     $: {
-        const chords = [];
-        if (includeMajor) {
-            chords.push('Major');
-        }
-        if (includeMajor7) {
-            chords.push('Major7')
-        }
-        if (includeMinor) {
-            chords.push('Minor');
-        }
-        if (includeMinor7) {
-            chords.push('Minor7')
-        }
-        if (includeSus2) {
-            chords.push('Sus2');
-        }
-        if (includeSus4) {
-            chords.push('Sus4');
-        }
-        types = chords;
+        types = config.filter(item1 => callbackObj[item1.callback]).map(item2 => item2.name);
+        type = types[0];
     }
-    let type = types[0];
+    let type: string;
 
-    let includeMajor = true;
-    let includeMajor7 = false;
-    let includeMinor = true;
-    let includeMinor7 = false;
-    let includeSus2 = false;
-    let includeSus4 = false;
     let countValue = '10';
+
+    let callbackObj = {}
 
     $: count = parseInt(countValue);
 
     onMount(() => {
         type = types[0];
+
+        config.forEach((chord: Config) => {
+                callbackObj[chord.callback] = chord.isDefault;
+            }
+        );
     });
 
     function startInterval() {
@@ -76,12 +61,12 @@
         inversion = inversions[Math.floor(Math.random() * inversions.length)];
     }
 </script>
-<div class="mx-auto max-w-md pt-2 px-4 md:px-0">
+<div class="mx-auto max-w-[500px] px-4 md:px-0">
 
     <div class="flex flex-col items-center my-10">
-        <div class="text-4xl mb-2 font-bold">{key}</div>
-        <div class="text-4xl mb-2 font-bold">{type}</div>
-        <div class="text-4xl font-bold">{inversion}</div>
+        <h1 class="mb-2 font-bold text-amber-800">{key}</h1>
+        <h1 class="mb-2 font-bold text-red-800">{type}</h1>
+        <h1 class="font-bold text-blue-800">{inversion}</h1>
     </div>
 
     <div class="flex">
@@ -96,38 +81,19 @@
         <button class="btn variant-filled flex-1" disabled="{!intervalId}" on:click={stopInterval}>Stop</button>
     </div>
 
-    <div class="mt-4 font-bold">Settings</div>
+    <h4 class="mt-4 font-bold">Included Chords</h4>
     <div class="flex flex-col">
 
-        <label class="label cursor-pointer flex flex-row justify-between items-center">
-            <span class="label-text">Major Chords</span>
-            <SlideToggle name="major-slide" size="sm" bind:checked={includeMajor}/>
-        </label>
+        {#each config as chord}
+            <label class="label cursor-pointer flex flex-row justify-between items-center">
+                <span class="label-text">{chord.name}</span>
+                <SlideToggle name="sus4-slide" bind:checked={callbackObj[chord.callback]} size="sm"/>
+            </label>
+        {/each}
+    </div>
 
-        <label class="label cursor-pointer flex flex-row justify-between items-center">
-            <span class="label-text">Major7 Chords</span>
-            <SlideToggle name="major7-slide" size="md" bind:checked={includeMajor7}/>
-        </label>
-
-        <label class="label cursor-pointer flex flex-row justify-between items-center">
-            <span class="label-text">Minor Chords</span>
-            <SlideToggle name="minor-slide" bind:checked={includeMinor} size="sm"/>
-        </label>
-        <label class="label cursor-pointer flex flex-row justify-between items-center">
-            <span class="label-text">Minor7 Chords</span>
-            <SlideToggle name="minor-slide" bind:checked={includeMinor7} size="sm"/>
-        </label>
-
-        <label class="label cursor-pointer flex flex-row justify-between items-center">
-            <span class="label-text">Sus2 Chords</span>
-            <SlideToggle name="sus2-slide" bind:checked={includeSus2} size="sm"/>
-        </label>
-
-        <label class="label cursor-pointer flex flex-row justify-between items-center">
-            <span class="label-text">Sus4 Chords</span>
-            <SlideToggle name="sus4-slide" bind:checked={includeSus4} size="sm"/>
-        </label>
-
+    <h4 class="mt-4 font-bold">Timer Interval</h4>
+    <div class="flex flex-col">
         <label class="label cursor-pointer flex flex-row justify-between items-center">
             <span class="label-text">Count down (in seconds)</span>
             <input name="interval-input" type="text" bind:value={countValue}
