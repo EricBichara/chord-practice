@@ -70,15 +70,15 @@
     </div>
 
     <div class="flex">
-        <button class="btn variant-filled flex-1" disabled={intervalId} on:click={doAtInterval}>Next</button>
+        <button class="btn variant-filled-primary flex-1" disabled={intervalId} on:click={doAtInterval}>Next</button>
     </div>
 
     <div class="flex flex-row items-center justify-center gap-3 mt-4">
-        <button class="btn variant-filled flex-1" disabled="{intervalId}" on:click={startInterval}>Start</button>
+        <button class="btn variant-filled-secondary flex-1" disabled="{intervalId}" on:click={startInterval}>Start</button>
         <div class="flex-1 flex border-2 bg-white drop-shadow-lg rounded-full h-12 justify-center items-center">
             <div class="font-bold">{currentCount}</div>
         </div>
-        <button class="btn variant-filled flex-1" disabled="{!intervalId}" on:click={stopInterval}>Stop</button>
+        <button class="btn variant-filled-error flex-1" disabled="{!intervalId}" on:click={stopInterval}>Stop</button>
     </div>
 
     <h4 class="mt-4 font-bold">Included Chords</h4>
