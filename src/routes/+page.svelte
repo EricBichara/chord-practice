@@ -16,13 +16,17 @@
         types = config.filter(item1 => callbackObj[item1.callback]).map(item2 => item2.name);
         type = types[0];
     }
+
+    $: {
+        currentCount = countValue;
+    }
+
     let type: string;
 
-    let countValue = '10';
+    let countValue = 10;
+    let currentCount = countValue;
 
     let callbackObj = {}
-
-    $: count = parseInt(countValue);
 
     onMount(() => {
         type = types[0];
@@ -43,16 +47,15 @@
             clearInterval(intervalId);
             intervalId = null;
         }
-        count = parseInt(countValue);
     }
 
     function doAtInterval() {
         if (intervalId) {
-            if (count > 1) {
-                count--;
+            if (currentCount > 1) {
+                currentCount--;
                 return;
             } else {
-                count = parseInt(countValue);
+                currentCount = countValue;
             }
         }
 
@@ -76,7 +79,7 @@
     <div class="flex flex-row items-center justify-center gap-3 mt-4">
         <button class="btn variant-filled flex-1" disabled="{intervalId}" on:click={startInterval}>Start</button>
         <div class="flex-1 flex border-2 bg-white drop-shadow-lg rounded-full h-12 justify-center items-center">
-            <div class="font-bold">{count}</div>
+            <div class="font-bold">{currentCount}</div>
         </div>
         <button class="btn variant-filled flex-1" disabled="{!intervalId}" on:click={stopInterval}>Stop</button>
     </div>
