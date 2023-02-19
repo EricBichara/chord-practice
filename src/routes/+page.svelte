@@ -7,9 +7,9 @@
     const keys = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
     const inversions = ['Root Inversion', '1st Inversion', '2nd Inversion'];
     let types = [];
-    let key = keys[0];
+    let key;
+    let inversion;
 
-    let inversion = inversions[0];
     let intervalId;
 
     $: {
