@@ -17,10 +17,6 @@
         type = types[0];
     }
 
-    $: {
-        currentCount = countValue;
-    }
-
     let type: string;
 
     let countValue = 10;
@@ -46,6 +42,7 @@
         if (intervalId) {
             clearInterval(intervalId);
             intervalId = null;
+            currentCount = countValue;
         }
     }
 
