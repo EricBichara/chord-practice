@@ -22,6 +22,10 @@
     let countValue = 10;
     let currentCount = countValue;
 
+    $: {
+        currentCount = countValue;
+    }
+
     let callbackObj = {}
 
     onMount(() => {
