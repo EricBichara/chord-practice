@@ -67,6 +67,10 @@
         }
         updateValues();
     }
+
+    function playChord(){
+        console.log('play chord');
+    }
 </script>
 <div class="flex h-screen">
     <div class="m-auto w-[500px] px-4 md:px-0">
@@ -76,22 +80,24 @@
             <h1 class="font-bold text-blue-800">{inversion}</h1>
         </div>
 
-        <div class="flex">
+        <div class="flex gap-3">
             <button class="btn variant-filled-primary flex-1" disabled={intervalId} on:click={doAtInterval}>Next
+            </button>
+            <button class="btn variant-filled-surface flex-1" disabled={intervalId} on:click={playChord()}>Play Chord
             </button>
         </div>
 
         <div class="flex flex-row items-center justify-center gap-3 mt-4">
-            <button class="btn variant-filled-secondary flex-1" disabled="{intervalId}" on:click={startInterval}>Start
+            <button class="btn variant-filled-secondary drop-shadow-lg flex-1 border-2" disabled="{intervalId}" on:click={startInterval}>Start
             </button>
-            <div class="flex-1 flex border-2 bg-white drop-shadow-lg rounded-full h-12 justify-center items-center">
+            <div class="flex-1 flex border-2 bg-white drop-shadow-lg rounded-full h-11 justify-center items-center">
                 <div class="font-bold">{currentCount}</div>
             </div>
-            <button class="btn variant-filled-error flex-1" disabled="{!intervalId}" on:click={stopInterval}>Stop
+            <button class="btn variant-filled-error flex-1 drop-shadow-lg border-2" disabled="{!intervalId}" on:click={stopInterval}>Stop
             </button>
         </div>
 
-        <h4 class="mt-4 font-bold">Included Chords</h4>
+        <h4 class="mt-6 font-bold">Included Chords</h4>
         <div class="flex flex-col">
 
             {#each config as chord}
