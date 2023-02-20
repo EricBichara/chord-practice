@@ -1,4 +1,5 @@
 <script lang="ts">
+    import * as tone from 'tone';
     import {onMount} from "svelte";
     import {SlideToggle} from "@skeletonlabs/skeleton";
     import type {Config} from "../lib/config";
@@ -69,7 +70,9 @@
     }
 
     function playChord(){
-        console.log('play chord');
+        const chords = config.filter(item => item.name === type).map(item2 => item2.chords);
+        console.log('chords', chords);
+
     }
 </script>
 <div class="flex h-screen">
@@ -83,7 +86,7 @@
         <div class="flex gap-3">
             <button class="btn variant-filled-primary flex-1" disabled={intervalId} on:click={doAtInterval}>Next
             </button>
-            <button class="btn variant-filled-surface flex-1" disabled={intervalId} on:click={playChord()}>Play Chord
+            <button class="btn variant-filled-surface flex-1" disabled={intervalId} on:click={playChord}>Play Chord
             </button>
         </div>
 
