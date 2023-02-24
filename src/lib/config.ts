@@ -33,12 +33,14 @@ const config: Config[] = [
     {
         callback: 'sus2',
         name: 'Sus2',
-        isDefault: false
+        isDefault: false,
+        chords: [3, 8]
     },
     {
         callback: 'sus4',
         name: 'Sus4',
-        isDefault: false
+        isDefault: false,
+        chords: [6, 8]
     }
 
 ];

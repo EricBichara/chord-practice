@@ -18,7 +18,7 @@
         updateValues();
     }
 
-    let type: string;
+    let type: string = config[0].name;
 
     let countValue = 10;
     let currentCount = countValue;
@@ -84,9 +84,9 @@
         </div>
 
         <div class="flex gap-3">
-            <button class="btn variant-filled-primary flex-1" disabled={intervalId} on:click={doAtInterval}>Next
+            <button class="btn variant-filled-primary drop-shadow-lg flex-1" disabled={intervalId} on:click={doAtInterval}>Next
             </button>
-            <button class="btn variant-filled-surface flex-1" disabled={intervalId} on:click={playChord}>Play Chord
+            <button class="btn variant-filled-surface drop-shadow-2xl flex-1" disabled={intervalId} on:click={playChord}>Play Chord
             </button>
         </div>
 
