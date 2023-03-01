@@ -2,7 +2,7 @@ export interface Config {
     name: string,
     callback: string,
     isDefault: boolean,
-    chords?: number[]
+    chords: number[]
 }
 
 const config: Config[] = [
